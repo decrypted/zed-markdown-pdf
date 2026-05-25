@@ -1,0 +1,4 @@
+# Default code owner for the whole repository.
+# PRs from anyone else require an approving review from @0xPatryk before merge.
+# As a repo admin, @0xPatryk can bypass this and merge their own PRs.
+* @0xPatryk
