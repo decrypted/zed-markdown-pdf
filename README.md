@@ -102,6 +102,114 @@ Configure exports in your Zed `settings.json` under the language server:
 | `outputHome`          | `""`     | Output directory. Empty → the source file's directory (created if missing). |
 | `outputFilename`      | `""`     | Output file name without extension. Empty → the source base name.           |
 
+## Styling a single document
+
+Beyond the global `cssPath` / `cssRaw` settings (which apply to *every* export),
+you can style **one specific file** by embedding CSS directly in its Markdown.
+
+### Inline `<style>` block
+
+Drop a `<style>` block anywhere in the document (the top is tidiest):
+
+```markdown
+<style>
+  h1 { color: #0969da; border-bottom: 2px solid #d0d7de; }
+  .danger { color: #cf222e; font-weight: 700; }
+</style>
+
+# My Report
+
+This paragraph has a <span class="danger">critical warning</span>.
+```
+
+### External stylesheet via `<link>`
+
+Keep the CSS in a sibling file and link it. A relative `href` resolves against
+the Markdown file's own directory, so a per-folder `report.css` "just works":
+
+```markdown
+<link rel="stylesheet" href="./report.css">
+
+# My Report
+```
+
+```css
+/* report.css, next to your .md */
+.callout { border-left: 4px solid #0969da; background: #eef4fb; padding: 0.5em 1em; }
+```
+
+Remote sheets (`https://…`) and `url(...)` references inside a local sheet are
+loaded too — local `url(...)` assets are inlined automatically.
+
+### Defining and applying classes
+
+There is no `{.class}` attribute syntax (no `markdown-it-attrs`); apply classes
+with plain HTML, then target them from your CSS above:
+
+- **Inline** — wrap a phrase in a span:
+
+  ```markdown
+  Status: <span class="badge">v1</span>
+  ```
+
+- **Block** — wrap a region in a `<div>`. ⚠️ **Leave a blank line** between the
+  `<div>` tags and the Markdown inside, or the Markdown is treated as literal
+  HTML and won't render:
+
+  ```markdown
+  <div class="callout">
+
+  This **bold** text and the list below render correctly.
+
+  - because of the blank lines above and below
+  - the content is parsed as Markdown
+
+  </div>
+  ```
+
+  Without the surrounding blank lines, `**bold**` would print verbatim as
+  `**bold**`. This is standard CommonMark HTML-block behavior.
+
+### Overriding the built-in defaults
+
+The whole document is rendered inside `<article class="markdown-body">`, styled
+by a bundled GitHub-flavored base theme (lowest priority). Your inline `<style>`
+/ `<link>` always loads **after** it, so scoping a rule under `.markdown-body`
+reliably wins. Some defaults worth knowing:
+
+| Element              | Default                                                              | Override example                                              |
+| -------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `body`               | `14px`, line-height `1.55`, color `#1f2328`, system sans-serif font | `.markdown-body { font-size: 12px; line-height: 1.4; }`       |
+| Content width        | `max-width: 820px`, centered (removed in print)                     | `.markdown-body { max-width: none; }`                         |
+| `h1`                 | `2em`, bottom border `1px solid #d0d7de`                            | `.markdown-body h1 { border-bottom: none; color: #0969da; }`  |
+| `h2`                 | `1.5em`, bottom border `1px solid #d0d7de`                          | `.markdown-body h2 { border-bottom: none; }`                  |
+| `h3` / `h4`          | `1.25em` / `1em`, weight `600`                                      | `.markdown-body h3 { font-size: 1.1em; }`                     |
+| Headings (all)       | margin `1.6em 0 .6em`, line-height `1.25`                           | `.markdown-body h2 { margin-top: 2.4em; }`                    |
+| `p, ul, ol, …`       | bottom margin `1em`                                                 | `.markdown-body p { margin-bottom: 1.4em; }`                  |
+| Inline `code`        | `85%` size, `#f6f8fa` bg, `.2em .4em` padding, radius `6px`         | `.markdown-body code { background: #fff3cd; }`                |
+| `pre` (code block)   | `#f6f8fa` bg, `1em` padding, radius `6px`                           | `.markdown-body pre { background: #0d1117; color: #fff; }`    |
+| `blockquote`         | color `#57606a`, left border `.25em solid #d0d7de`                  | `.markdown-body blockquote { border-left-color: #0969da; }`   |
+| `table` `th`/`td`    | collapsed, `1px solid #d0d7de` cells, `th` bg `#f6f8fa`             | `.markdown-body td { padding: 2px 8px; }`                     |
+| `a` (links)          | color `#0969da`, no underline (underline on hover)                  | `.markdown-body a { color: #cf222e; }`                        |
+| `hr`                 | `1px solid #d0d7de` top border                                      | `.markdown-body hr { border-top: 2px dashed #ccc; }`          |
+| `img`                | `max-width: 100%`                                                   | `.markdown-body img { border: 1px solid #d0d7de; }`           |
+| `.footnotes`         | `0.85em`, top border, `2em` top margin                             | `.markdown-body .footnotes { font-size: 0.75em; }`            |
+
+For example, to tighten everything and recolor headings for one document:
+
+```markdown
+<style>
+  .markdown-body { font-size: 12px; max-width: none; }
+  .markdown-body h1, .markdown-body h2 { color: #0969da; border-bottom: none; }
+</style>
+
+# My Report
+```
+
+> Two layers sit *above* the base theme and below your styles: the bundled
+> **highlight.js** theme (code-block syntax colors) and **KaTeX** CSS (math).
+> Override those the same way — your `<style>` still wins on equal specificity.
+
 ## How it works
 
 Zed extensions run in a `wasm32-wasip2` sandbox and can't spawn a browser directly.
