@@ -1,8 +1,8 @@
-id = "markdown-pdf-export"
+id = "markdown-pdf"
 name = "Markdown PDF"
-version = "0.1.0"
+version = "0.1.1"
 schema_version = 1
-authors = ["Patryk Stemporowski <patryk.stemporowski@gmail.com>"]
+authors = ["Patryk Stemporowski <patryk.stemporowski@hyperioncode.de>"]
 description = "Export Markdown files to beautifully styled PDFs via a native LSP sidecar."
 repository = "https://github.com/0xPatryk/zed-markdown-pdf"
 license = "MIT"

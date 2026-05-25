@@ -1,6 +1,6 @@
 [package]
-name = "markdown-pdf-export"
-version = "0.1.0"
+name = "markdown-pdf"
+version = "0.1.1"
 edition = "2021"
 publish = false
 

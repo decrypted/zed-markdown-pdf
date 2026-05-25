@@ -38,7 +38,7 @@ Mermaid diagrams are drawn, and task lists, footnotes, and tables all carry over
   > launch it once from a terminal (`zed`) so it inherits your shell `PATH`.
 - **A Chromium-based browser** (Google Chrome, Edge, Brave, or Chromium) is used
   for rendering. If none is found, a headless Chromium is downloaded automatically
-  on first export and cached under `~/.cache/markdown-pdf-export`.
+  on first export and cached under `~/.cache/markdown-pdf`.
 
 ## Install
 

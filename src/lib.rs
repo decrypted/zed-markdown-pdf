@@ -145,14 +145,14 @@ impl zed::Extension for MarkdownPdfExtension {
         worktree: &zed::Worktree,
     ) -> Result<Option<Value>> {
         // Hand the user's `lsp.markdown-pdf-lsp.settings` object to the sidecar
-        // as the top-level config in its `markdown-pdf-export` section.
+        // as the top-level config in its `markdown-pdf` section.
         let settings = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
             .ok()
             .and_then(|s| s.settings.clone())
             .unwrap_or_else(|| serde_json::json!({}));
 
         Ok(Some(serde_json::json!({
-            "markdown-pdf-export": settings,
+            "markdown-pdf": settings,
         })))
     }
 }

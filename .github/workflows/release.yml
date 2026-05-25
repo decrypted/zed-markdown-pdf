@@ -58,7 +58,7 @@ jobs:
     steps:
       - uses: huacnlee/zed-extension-action@v2
         with:
-          extension-name: markdown-pdf-export # == id in extension.toml
+          extension-name: markdown-pdf # == id in extension.toml
           push-to: 0xPatryk/extensions # your fork of zed-industries/extensions
         env:
           COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}

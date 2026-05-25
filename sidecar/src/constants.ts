@@ -2,4 +2,4 @@
 export const COMMAND_EXPORT = "markdown.exportToPdf";
 
 /** Workspace configuration section that holds {@link ExportSettings}. */
-export const SETTINGS_SECTION = "markdown-pdf-export";
+export const SETTINGS_SECTION = "markdown-pdf";

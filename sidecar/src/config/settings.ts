@@ -1,5 +1,5 @@
 /**
- * User-configurable export options, surfaced under the `markdown-pdf-export`
+ * User-configurable export options, surfaced under the `markdown-pdf`
  * workspace configuration section.
  */
 export interface ExportSettings {

@@ -33,7 +33,7 @@ export async function launchBrowser(logger: Logger): Promise<Browser> {
 
   logger.info("No local Chrome detected; falling back to PCR download");
   const stats = await PCR({
-    detectionPath: path.join(os.homedir(), ".cache", "markdown-pdf-export"),
+    detectionPath: path.join(os.homedir(), ".cache", "markdown-pdf"),
     folderName: "chromium",
     hosts: [
       "https://storage.googleapis.com",
