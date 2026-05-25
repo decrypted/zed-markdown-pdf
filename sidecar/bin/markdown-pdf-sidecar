@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+// Thin launcher — shebanged entry that npm link can drop into PATH.
+require("../dist/server.js");

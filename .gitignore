@@ -1,0 +1,8 @@
+target/
+sidecar/dist/
+sidecar/node_modules/
+sidecar/*.tgz
+*.tar.gz
+*.wasm
+.DS_Store
+.omc/
