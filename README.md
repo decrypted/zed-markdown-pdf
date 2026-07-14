@@ -1,4 +1,10 @@
-# Markdown PDF
+# 🔒 Markdown PDF
+
+> [!WARNING]
+> **Only export Markdown you trust.** Export renders the document as HTML in a real
+> headless browser, so raw HTML (including `<script>`) and project-local styling can
+> execute during export — rendering a file from an untrusted source can run code on
+> your machine. See [Security](#security) and [`TODO.md`](TODO.md).
 
 ## Background
 
