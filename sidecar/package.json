@@ -1,6 +1,6 @@
 {
   "name": "markdown-pdf-sidecar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Native LSP sidecar for the Zed Markdown PDF Export extension.",
   "private": true,
   "main": "dist/server.js",
