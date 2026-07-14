@@ -6,7 +6,7 @@ use zed_extension_api::{
     LanguageServerId, Result,
 };
 
-const SIDECAR_REPO: &str = "0xPatryk/zed-markdown-pdf";
+const SIDECAR_REPO: &str = "decrypted/zed-markdown-pdf";
 const SIDECAR_ARCHIVE_NAME: &str = "markdown-pdf-sidecar.tar.gz";
 const SIDECAR_ENTRY: &str = "dist/server.js";
 
@@ -91,7 +91,7 @@ impl MarkdownPdfExtension {
         }
 
         self.cached_sidecar_dir = Some(version_dir.clone());
-        Ok(entry_path)
+        Ok(absolute(&entry_path))
     }
 }
 
