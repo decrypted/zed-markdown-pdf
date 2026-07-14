@@ -227,6 +227,16 @@ LSP code action because Zed surfaces those in the `cmd-.` menu.
 +---------------------+        +-------------------------------+
 ```
 
+## Security
+
+**Only export Markdown you trust.** Export renders the document as HTML in a real
+headless Chromium, so raw HTML in the Markdown — including `<script>` — and any
+`.zed/settings.json` styling in the project are treated as trusted input and can
+execute during export. Rendering a Markdown file from an untrusted source (a
+cloned repo you haven't reviewed, a downloaded document) can therefore run code
+on your machine. See [`TODO.md`](TODO.md) for the specific hardening this project
+has not yet done. Treat "the Markdown is trusted" as a project assumption.
+
 ## Development
 
 ```sh
